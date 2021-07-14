@@ -12,8 +12,6 @@ target_include_directories(ctrl-c PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURC
 target_include_directories(ctrl-c PUBLIC $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 set_target_properties(ctrl-c PROPERTIES VERSION ${PROJECT_VERSION} PUBLIC_HEADER ctrl-c.h)
 
-
-
 include(GNUInstallDirs)
 install(TARGETS ctrl-c
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} 
