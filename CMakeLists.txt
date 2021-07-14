@@ -7,12 +7,15 @@ set (CMAKE_CXX_STANDARD 11)
 # See https://blog.kitware.com/create-dlls-on-windows-without-declspec-using-new-cmake-export-all-feature/
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
-add_library(ctrl-c src/ctrl-c.h src/ctrl-c.cpp)
-target_include_directories(ctrl-c PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>)
+add_library(ctrl-c include/ctrl-c.h src/ctrl-c.cpp)
+target_include_directories(ctrl-c PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
 target_include_directories(ctrl-c PUBLIC $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
-set_target_properties(ctrl-c PROPERTIES VERSION ${PROJECT_VERSION} PUBLIC_HEADER ctrl-c.h)
+set_target_properties(ctrl-c PROPERTIES VERSION ${PROJECT_VERSION} PUBLIC_HEADER include/ctrl-c.h)
 
 include(GNUInstallDirs)
 install(TARGETS ctrl-c
-        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} 
-        PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+        EXPORT  ${PROJECT_NAME}
+        ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+        LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+        RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
+        PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
